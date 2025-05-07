@@ -1,7 +1,6 @@
 import json
 import socket
 import threading
-import hashlib
 import pymongo
 
 # MongoDB connection
@@ -42,26 +41,45 @@ def broadcast_message(message, sender_username):
                 del clients[user]
 
 def handle_client(client_socket):
+    username = None
     """Handles user authentication and messaging."""
     try:
         client_socket.send("Do you have an account? (yes/no): ".encode())
-        has_account = client_socket.recv(1024).decode().strip().lower()
-
-        client_socket.send("Enter username: ".encode())
-        username = client_socket.recv(1024).decode().strip()
-
-        client_socket.send("Enter password: ".encode())
-        password = client_socket.recv(1024).decode().strip()
+        while True:
+            has_account = client_socket.recv(1024).decode().strip().lower()
+            if has_account in ("yes", "no"):
+                break
+            else:
+                client_socket.send("❌ Invalid input. Please type 'yes' or 'no'.\nDo you have an account? (yes/no): ".encode())
 
         if has_account == "yes":
+            client_socket.send("Enter username: ".encode())
+            username = client_socket.recv(1024).decode().strip()
+
+            client_socket.send("Enter password: ".encode())
+            password = client_socket.recv(1024).decode().strip()
+
             if not authenticate_user(username, password):
                 client_socket.send("Login failed. Closing connection.".encode())
                 return
         else:
-            if not register_user(username, password):
-                client_socket.send("User already exists. Closing connection.".encode())
-                client_socket.close()
-                return
+            client_socket.send("📝 Let's create a new account.\n".encode())
+
+            client_socket.send("Enter username: ".encode())
+            username = client_socket.recv(1024).decode().strip()
+
+            client_socket.send("Enter password: ".encode())
+            password = client_socket.recv(1024).decode().strip()
+
+            while True:
+                if register_user(username, password):
+                    client_socket.send("✅ Account created successfully.\n".encode())
+                    break
+                else:
+                    client_socket.send("❌ Username already exists. Try another one.\n".encode())
+
+                client_socket.send("Enter another username: ".encode())
+                username = client_socket.recv(1024).decode().strip()
 
         clients[username] = client_socket
         clients[username].send("You can chat now!".encode())
@@ -142,24 +160,6 @@ def handle_client(client_socket):
                             except Exception as e:
                                 print(f"❌ Failed to send to {member}: {e}")
 
-                # elif msg.startswith("/block"):
-                #     parts = msg.split()
-                #     if len(parts) != 2:
-                #         client_socket.sendall("❌ Usage: /block <username>".encode())
-                #         continue
-                #
-                #     blocked_user = parts[1]
-                #     if blocked_user == username:
-                #         client_socket.sendall("⚠️ You cannot block yourself.".encode())
-                #         continue
-                #
-                #     users_collection.update_one(
-                #         {"username": username},
-                #         {"$addToSet": {"blocked_users": blocked_user}}  # tránh trùng lặp
-                #     )
-                #     client_socket.sendall(f"✅ Blocked {blocked_user}".encode())
-                #     continue
-
                 elif msg.startswith("/msg"):
                     #sender = users_collection.find_one({"username": username})
                     parts = msg.split(" ", 2)
@@ -168,14 +168,6 @@ def handle_client(client_socket):
                         continue
 
                     target_user, message = parts[1], parts[2]
-                    # if target_user in sender['blocked_users']:
-                    #     client_socket.sendall("❌ You blocked this user!.".encode())
-                    #     continue
-
-                    # receiver = users_collection.find_one({"username": username})
-                    # if username in receiver['blocked_users']:
-                    #     client_socket.sendall(f"❌ You are blocked by {target_user}!.".encode())
-                    #     continue
 
                     if target_user not in clients:
                         client_socket.sendall("❌ User is not online.".encode())
