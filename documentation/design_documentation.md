@@ -15,7 +15,7 @@
 
 Start server
 
-![image](https://github.com/user-attachments/assets/51bfbd9a-91bc-4684-a98a-fd9f76d4ccce)
+![image](https://github.com/user-attachments/assets/ab10258f-5fe9-4735-9563-5c6f8b0e830b)
 
 ---
 
@@ -23,7 +23,7 @@ Start server
 
 Once the server is running, clients can connect using a socket client.
 
-![image](https://github.com/user-attachments/assets/3f3c6909-dd84-412c-8bf4-ec6ab7be2bdf)
+![image](https://github.com/user-attachments/assets/00019641-0fbf-4b7b-884c-91b27e3e4d91)
 
 ---
 
@@ -31,7 +31,7 @@ Once the server is running, clients can connect using a socket client.
 
 Users can register with a unique username and password.
 
-![image](https://github.com/user-attachments/assets/8f9d88e2-89f5-48ae-8445-c1bbf7f2253d)
+![image](https://github.com/user-attachments/assets/d5bcf8ae-4e56-44ec-91f8-222cfc07bdaa)
 
 ---
 
@@ -39,7 +39,7 @@ Users can register with a unique username and password.
 
 Authenticated access to use the chat and group features.
 
-![image](https://github.com/user-attachments/assets/1476198b-94cf-482b-a638-84af2d6c7e8b)
+![image](https://github.com/user-attachments/assets/b056ecdb-e6e4-4a76-b221-4ff12f4ef14f)
 
 ---
 
@@ -47,7 +47,7 @@ Authenticated access to use the chat and group features.
 
 Users can create new chat groups that others can join.
 
-![image](https://github.com/user-attachments/assets/35163477-8a7b-4bf1-840f-b8b985ba67f7)
+![image](https://github.com/user-attachments/assets/fbcef1dc-c70f-4576-8840-dc860208a523)
 
 ---
 
@@ -55,7 +55,7 @@ Users can create new chat groups that others can join.
 
 Join existing groups to start chatting with other members.
 
-![image](https://github.com/user-attachments/assets/bb2224bf-7640-4913-abe4-54d7beff881f)
+![image](https://github.com/user-attachments/assets/d78c32d1-aa9d-41c0-8940-02e26ecbfacd)
 
 ---
 
@@ -63,7 +63,7 @@ Join existing groups to start chatting with other members.
 
 Send messages within a group, to private user or broadcast.
 
-![image](https://github.com/user-attachments/assets/e3801aaa-fc7d-462b-983e-74c5218e1063)
+![image](https://github.com/user-attachments/assets/de464e3e-bf2e-4501-afcd-c49d4c258463)
 
 
 
