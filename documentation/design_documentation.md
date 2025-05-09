@@ -59,7 +59,7 @@ Join existing groups to start chatting with other members.
 
 ---
 
-### 💬 Group Chat
+### 💬 Chat
 
 Send messages within a group, to private user or broadcast.
 
